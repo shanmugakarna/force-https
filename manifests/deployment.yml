@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: forcehttps 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: forcehttps
+  template:
+    metadata:
+      labels:
+        app: forcehttps 
+    spec:
+      containers:
+        - name: forcehttps 
+          image: alphavdefault.azurecr.io/forcehttps
+          ports:
+          - containerPort: 80
