@@ -66,3 +66,23 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  DeployDev:
+    name: Deploy to Dev
+    needs: [Build]
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    steps:
+      - name: Deploy
+        run: echo ${{ secrets.EKS_CLUSTER_NAME }}
+
+  DeployProd:
+    name: Deploy to Production
+    needs: [DeployDev]
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    steps:
+      - name: Deploy
+        run: echo ${{ secrets.EKS_CLUSTER_NAME }}
